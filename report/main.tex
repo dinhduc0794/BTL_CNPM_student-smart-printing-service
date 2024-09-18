@@ -1,0 +1,200 @@
+% -------------------------
+%	Author: ToanHac
+%	Created: 09.2024
+% -------------------------
+\documentclass[a4paper]{article}
+\usepackage{a4wide,amssymb,epsfig,latexsym,multicol,array,hhline,fancyhdr}
+\usepackage{vntex}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{lastpage}
+\usepackage{indentfirst}
+\usepackage[lined,boxed,commentsnumbered]{algorithm2e}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{graphicx}							% Standard graphics package
+\usepackage{array}
+\usepackage{tabularx, caption}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{rotating}
+\usepackage{graphics}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{epsfig}
+\usepackage{tikz}
+\usetikzlibrary{arrows,snakes,backgrounds}
+\usepackage{hyperref}
+\hypersetup{urlcolor=blue,linkcolor=black,citecolor=black,colorlinks=true} 
+%\usepackage{pstcol} 								% PSTricks with the standard color package
+\usepackage{subcaption}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.15}
+\usepackage{mathrsfs}
+\usetikzlibrary{arrows}
+\pagestyle{empty}
+
+\usepackage{listings}
+% -- Defining colors:
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{bg}{HTML}{F6F8FA} % Background color
+\definecolor{keyword}{HTML}{D73A49} % Keyword color
+\definecolor{identifier}{HTML}{005CC5} % Identifier color
+\definecolor{builtin}{HTML}{6F42C1} % Builtin color
+% Definig a custom style:
+%For python code
+\lstdefinestyle{python}{
+    language=Python,
+    backgroundcolor=\color{bg},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{keyword}\bfseries,
+    stringstyle=\color{codepurple},
+    numberstyle=\tiny\color{codegray},
+    identifierstyle=\color{identifier},
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    keepspaces=true,                 
+    numbers=left,       
+    numbersep=5pt,
+    frame=single,
+    showspaces=false,
+    rulecolor=\color{bg},
+    tabsize=2,
+    showstringspaces=false,
+    morekeywords={self},
+    framexleftmargin=3.5mm,
+    linewidth=0.6\linewidth,
+    xleftmargin=12pt,
+    aboveskip=12pt,
+    belowskip=12pt,
+    rulecolor=\color{codegray},
+}
+
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+
+\AtBeginDocument{\renewcommand*\contentsname{Mục lục}}
+\AtBeginDocument{\renewcommand*\refname{Tài liệu tham khảo}}
+%\usepackage{fancyhdr}
+\setlength{\headheight}{40pt}
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\fancyhead[L]{
+ \begin{tabular}{rl}
+    \begin{picture}(25,15)(0,0)
+    \put(0,-8){\includegraphics[width=8mm, height=8mm]{Images/hcmut.png}}
+    %\put(0,-8){\epsfig{width=10mm,figure=hcmut.eps}}
+   \end{picture}&
+	%\includegraphics[width=8mm, height=8mm]{hcmut.png} & %
+	\begin{tabular}{l}
+		\textbf{\bf \ttfamily Trường Đại học Bách khoa, Tp. Hồ Chí Minh}\\
+		\textbf{\bf \ttfamily Khoa Khoa học và Kỹ thuật máy tính}
+	\end{tabular} 	
+ \end{tabular}
+}
+\fancyhead[R]{
+	\begin{tabular}{l}
+		\tiny \bf \\
+		\tiny \bf 
+	\end{tabular}  }
+\fancyfoot{} % clear all footer fields
+\fancyfoot[L]{\scriptsize \ttfamily Bài tập lớn Công nghệ phần mềm - Học kỳ 241}
+\fancyfoot[R]{\scriptsize \ttfamily Trang {\thepage}/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.3pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+
+%%%
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{3}
+\makeatletter
+\newcounter {subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection .\@alph\c@subsubsubsection}
+\newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\z@}%
+                                     {-3.25ex\@plus -1ex \@minus -.2ex}%
+                                     {1.5ex \@plus .2ex}%
+                                     {\normalfont\normalsize\bfseries}}
+\newcommand*\l@subsubsubsection{\@dottedtocline{3}{10.0em}{4.1em}}
+\newcommand*{\subsubsubsectionmark}[1]{}
+\makeatother
+
+
+\begin{document}
+
+\begin{titlepage}
+\begin{tikzpicture}[remember picture,overlay,inner sep=0,outer sep=0]
+	\draw[blue!70!black,line width=4pt] ([xshift=-1.5cm,yshift=-2cm]current page.north east) coordinate (A)--([xshift=1.5cm,yshift=-2cm]current page.north west) coordinate(B)--([xshift=1.5cm,yshift=2cm]current page.south west) coordinate (C)--([xshift=-1.5cm,yshift=2cm]current page.south east) coordinate(D)--cycle;
+\end{tikzpicture}
+\begin{center}
+\textbf{\large ĐẠI HỌC QUỐC GIA TP. HỒ CHÍ MINH} \\
+\textbf{\large TRƯỜNG ĐẠI HỌC BÁCH KHOA} \\
+\textbf{\large KHOA KHOA HỌC VÀ KỸ THUẬT MÁY TÍNH}
+\end{center}
+
+
+\vspace{1cm}
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=3cm]{Images/hcmut.png}
+\end{center}
+\end{figure}
+
+\vspace{1cm}
+
+
+\begin{center}
+\begin{tabular}{c}
+\multicolumn{1}{l}{\textbf{{\Large Công nghệ phần mềm}}}\\
+~~\\
+\hline
+\\
+\multicolumn{1}{l}{\textbf{{\Large Bài tập lớn} (Nhóm x - L02)}}\\
+\\
+\textbf{{\Huge Student Smart Printing Service}}\\
+\\
+\textbf{{\Huge HCMUT\_SSPS}}\\
+\\
+\hline
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{rrlcl}
+			\hspace{2.25 cm} & GVHD: & Trương Trần Tuấn Phát & & \\
+			& SV thực hiện: & Hoa Toàn Hạc & -- & 2201917 \\
+		\end{tabular}
+	\end{table}
+
+
+\begin{center}
+{\footnotesize TP. HỒ CHÍ MINH, THÁNG x, 20xx}
+\end{center}
+\end{titlepage}
+
+
+%\thispagestyle{empty}
+%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\tableofcontents
+\newpage
+% === Begin random content === %
+\section*{Lời mở đầu}
+aaaa
+% === End random content === %
+% === Being main content === %
+\newpage
+
+% === End main content === %
+\newpage
+\begin{thebibliography}{80}
+\bibitem{bib1}
+Vũ Hữu Tiệp, "Machine Learning cơ bản," GitHub, Jan. 2, 2022. [Online]. Available: https://github.com/tiepvupsu/ebookMLCB.
+\end{thebibliography}
+\end{document}
+
