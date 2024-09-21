@@ -151,7 +151,7 @@
 ~~\\
 \hline
 \\
-\multicolumn{1}{l}{\textbf{{\Large Bài tập lớn} (Nhóm x - L02)}}\\
+\multicolumn{1}{l}{\textbf{{\Large Bài tập lớn}}}\\
 \\
 \textbf{{\Huge Student Smart Printing Service}}\\
 \\
@@ -167,8 +167,11 @@
 		\centering
 		\begin{tabular}{rrlcl}
 			\hspace{2.25 cm} & GVHD: & Trương Trần Tuấn Phát & & \\
-			& SV thực hiện: & ABC & -- & xxx \\
-            & & ABC & -- & xxx \\
+			& SV thực hiện: & Hà Lê Tín   & -- & 2213484 \\
+            & & Lê Quốc Huy & -- & 2211194\\
+            & & Hà Tiến Thắng & -- & 2213184 \\
+            & & Chế Minh Đức & -- & 2210783 \\
+            & & Hoa Toàn Hạc & -- & 2210917 \\
 		\end{tabular}
 	\end{table}
 
@@ -190,6 +193,31 @@
 % === End random content === %
 % === Being main content === %
 \newpage
+\section{Danh sách thành viên \& Nhiệm vụ }
+
+\begin{center}
+\begin{tabular}{|c|c|c|l|c|c|}
+\hline
+\textbf{STT} & \textbf{Họ và tên} & \textbf{MSSV} & \textbf{NHIỆM VỤ}\\
+\hline 
+%%%%%Student 1%%%%%%%%%%
+\multirow{2}{*}{1} & \multirow{2}{*}{Hà Lê Tín} & \multirow{2}{*}{2213484} & A \\
+ & &  & B\\
+\hline 
+\multirow{2}{*}{2} & \multirow{2}{*}{Lê Quốc Huy} & \multirow{2}{*}{2211194} & A \\
+ & &  & B\\
+\hline 
+\multirow{2}{*}{3} & \multirow{2}{*}{Hà Tiến Thắng} & \multirow{2}{*}{2213184} & A \\
+ & &  & B\\
+\hline 
+\multirow{2}{*}{4} & \multirow{2}{*}{Chế Minh Đức} & \multirow{2}{*}{2210783} & A \\
+ & &  & B\\
+\hline 
+\multirow{2}{*}{5} & \multirow{2}{*}{Hoa Toàn Hạc} & \multirow{2}{*}{2210917} & A \\
+ & &  & B\\
+\hline 
+\end{tabular}
+\end{center}
 \section{Bối cảnh và các bên liên quan}
 \subsection{Bối cảnh}
 Hiện nay, in ấn tài liệu vẫn là một nhu cầu thiết yếu trong môi trường giáo dục nói chung và Trường Đại học Bách khoa - Đại học Quốc gia TP.HCM nói riêng, khi sinh viên thường xuyên cần các tài liệu in ấn phục vụ cho việc học tập và thi cử. Nhu cầu này đặc biệt gia tăng vào các giờ cao điểm, như mùa thi hoặc đầu học kỳ, khi sinh viên cần in slide bài giảng, tài liệu học tập, hoặc tài liệu được mang vào phòng thi. Tuy nhiên, hiện tại sinh viên có thể in ấn thông qua 2 cách là in tại trường (ví dụ như thư viện BK.B1 ở cs2) hoặc là ra các tiệm in bên ngoài. Đối với lựa chọn thứ nhất là in tại trường sinh viên thường gặp phải tình trạng quá tải khiến cho việc in ấn mất rất nhiều thời gian đặc việc vào những lúc cao điểm, để tránh việc quá tải gây mất thời gian sinh viên có thể lựa chọn in ấn ở các tiệm bên ngoài. Tuy nhiên phương án này tiềm ẩn các nguy cơ rò rỉ các thông tin cá nhân (bài tập lớn, đồ án, ...) và gặp phải vấn đề bản quyền đặc biệt các tài liệu, slide của giảng viên trường đều có bản quyền của riêng họ. Vì vậy, việc triển khai một hệ thống in ấn thông minh SSPS, tích hợp ngay tại trường sẽ giúp đáp ứng kịp thời nhu cầu của sinh viên, đồng thời bảo đảm tính bảo mật và thuận tiện hơn trong việc in ấn tài liệu.
@@ -257,11 +285,11 @@ Hiện nay, in ấn tài liệu vẫn là một nhu cầu thiết yếu trong m�
 \end{itemize}
 \subsection{Yêu cầu phi chức năng}
 \begin{itemize}
-    \item Giao diện dễ dàng sử dụng, các nút chức năng rõ ràng tránh gây hiểu lầm.
+    \item Giao diện dễ dàng sử dụng, các nút chức năng rõ ràng tránh gây hiểu lầm. Đối với phiên bản trên điện thoại kích thước tối thiểu của một nút bấm là 48x48 pixel.
     \item Tương thích nhiều loại thiết bị (responsive).
     \item Thời gian phản hồi của hệ thống phải nhanh (upload tài liệu, thanh toán, ...)
     \item Ở các chức năng quan trọng như upload tài liệu, ra lệnh in cần có thông báo thành công khi hoàn thành.
-    \item Tính bảo mật cao (bắt buộc đăng nhập thông qua SSO).
+    \item Tính bảo mật cao (bắt buộc đăng nhập thông qua SSO, mật khẩu của người dùng bắt buộc phải được mã hóa khi lưu trên cơ sở dữ liệu của hệ thống).
     \item Hệ thống phải có khả năng mở rộng dễ dàng (tăng thêm số lượng máy in, ...).
     \item Độ tin cậy cao đảm bảo phải ghi nhận lại các lỗi xảy ra (nếu có) trong quá trình sử dụng của sinh viên và thông báo tới sinh viên.
     \item Hệ thống phải khả dụng tránh quá tải, sập thời gian dài kể cả những lúc cao điểm như trước kỳ thi.
