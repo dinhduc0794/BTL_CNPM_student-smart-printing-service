@@ -17,6 +17,6 @@ https://github.com/user-attachments/assets/9305b54b-4cdc-475a-b91e-189d24d18917
 - [@minhduc](.....)
 - [@hoaihai](.....)
 - [@quochuy](.....)
-- [@tienthang](...)
+- [@tienthang](https://github.com/htthangcse)
 - [@letin](.......)
 
