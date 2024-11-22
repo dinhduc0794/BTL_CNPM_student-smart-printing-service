@@ -1,19 +1,32 @@
 package com.javaweb.studentsmartprintingservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.javaweb.studentsmartprintingservice.enums.PageSizeEnum;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
+import com.javaweb.studentsmartprintingservice.enums.PaymentMethodEnum;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.ZonedDateTime;
 
 @Table(name = "printing_log")
 @Entity
 @Getter
 @Setter
-@PrimaryKeyJoinColumn(name = "id")
-public class PrintingLogEntity extends OrderLogEntity{
+public class PrintingLogEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "payment_method", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private PaymentMethodEnum paymentMethod = PaymentMethodEnum.CASH;
+
+    @Column(name = "datetime", nullable = false, updatable = false)
+    @CreationTimestamp
+    private ZonedDateTime datetime;
+
     @Column(name = "document_name", nullable = false)
     private String documentName;
 
@@ -27,10 +40,20 @@ public class PrintingLogEntity extends OrderLogEntity{
     private Boolean isColor = false;
 
     @Column(name = "page_size", nullable = false)
+    @Enumerated(EnumType.STRING)
     private PageSizeEnum pageSize;
 
     @Column(name = "is_2_side", nullable = false)
     private Boolean is2Side;
 
-    //quan he n-n printer
+    @ManyToOne
+    @JoinColumn(name = "student_id", nullable = false)
+    @JsonBackReference
+    private StudentEntity student;
+
+    //quan he n-1 printer
+    @ManyToOne
+    @JoinColumn(name = "printer_id", nullable = false)
+    @JsonBackReference
+    private PrinterEntity printer;
 }

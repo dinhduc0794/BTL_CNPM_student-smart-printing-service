@@ -1,9 +1,10 @@
 package com.javaweb.studentsmartprintingservice.enums;
 
 public enum PageSizeEnum {
-    A4("A4"),
-    A5("A5"),
-    A6("A6");
+    A1("A1"),
+    A2("A2"),
+    A3("A3"),
+    A4("A4");
 
     private String size;
 

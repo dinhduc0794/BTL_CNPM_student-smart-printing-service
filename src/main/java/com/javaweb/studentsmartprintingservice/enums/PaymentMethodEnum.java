@@ -2,7 +2,7 @@ package com.javaweb.studentsmartprintingservice.enums;
 
 public enum PaymentMethodEnum {
     CASH("Tiền mặt"),
-    INTERNET_BANKING ("Chuyển khoản ngân hàng"),
+    BANKING("Chuyển khoản ngân hàng"),
     E_WALLET ("Ví điện tử");
 
     private String method;
