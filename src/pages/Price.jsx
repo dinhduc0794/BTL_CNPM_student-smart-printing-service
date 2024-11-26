@@ -124,6 +124,18 @@ function Price() {
                 bgColor="#FFFFFF"
                 includeMargin={true}
               />
+              <p className="text-gray-500 mt-4">
+                Người dùng: <span className="font-semibold">{user.name}</span>
+              </p>
+              <p className="text-gray-500 mt-1">
+                Khoa: <span className="font-semibold">{user.faculty}</span>
+              </p>
+              <p className="text-gray-500 mt-1">
+                Số trang: <span className="font-semibold">{selectedPrice.pages}</span>
+              </p>
+              <p className="text-gray-500 mt-1">
+                Số tiền: <span className="font-semibold">{selectedPrice.price}₫</span>
+              </p>
               <button
                 onClick={closeQrModal}
                 className="mt-6 px-4 py-2 bg-red-500 text-white font-semibold rounded-md hover:bg-red-600 transition"
