@@ -9,7 +9,7 @@ export default defineConfig({
   css: {
     postcss: {
       plugins: [tailwindcss()],
-    },
+    }
   },
   resolve: {
     alias: [{ find: "~", replacement: resolve(__dirname, "./src") }]
