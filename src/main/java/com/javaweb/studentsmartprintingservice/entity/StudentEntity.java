@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.javaweb.studentsmartprintingservice.enums.FacultyEnum;
 import com.javaweb.studentsmartprintingservice.enums.PageSizeEnum;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,9 +13,10 @@ import java.util.List;
 
 @Table(name = "student")
 @Entity
+@Data
 @Getter
 @Setter
-public class StudentEntity {
+public class StudentEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

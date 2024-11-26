@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.javaweb.studentsmartprintingservice.enums.PageSizeEnum;
 import com.javaweb.studentsmartprintingservice.enums.PaymentMethodEnum;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,9 +13,10 @@ import java.time.ZonedDateTime;
 
 @Table(name = "printing_log")
 @Entity
+@Data
 @Getter
 @Setter
-public class PrintingLogEntity {
+public class PrintingLogEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,10 +24,6 @@ public class PrintingLogEntity {
     @Column(name = "payment_method", nullable = false)
     @Enumerated(EnumType.STRING)
     private PaymentMethodEnum paymentMethod = PaymentMethodEnum.CASH;
-
-    @Column(name = "datetime", nullable = false, updatable = false)
-    @CreationTimestamp
-    private ZonedDateTime datetime;
 
     @Column(name = "document_name", nullable = false)
     private String documentName;
