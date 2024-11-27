@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface PrinterService {
     List<PrinterEntity> getAll();
+    List<PrinterEntity> getScheduledPrinters();
+    List<PrinterEntity> getNotScheduledPrinters();
     PrinterEntity getById(Long id);
     PrinterEntity save(PrinterDTO printerDTO);
     void delete(List<Long> ids);

@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends JpaRepository<StudentEntity, Long> {
     void deleteAllByIdIn(List<Long> ids);
+    StudentEntity findByPrintingLogs_Id(Long printingLogId);
 }

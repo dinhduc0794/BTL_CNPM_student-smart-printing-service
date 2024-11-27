@@ -23,8 +23,26 @@ public class PrinterController {
     private PrinterService printerService;
 
     @GetMapping
-    public ResponseEntity<List<PrinterEntity>> getAll() {
+    public ResponseEntity<List<PrinterEntity>> getAllPrinters() {
         List<PrinterEntity> printers = printerService.getAll();
+        if (printers.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(printers);
+    }
+
+    @GetMapping("/scheduled")
+    public ResponseEntity<List<PrinterEntity>> getScheduledPrinters() {
+        List<PrinterEntity> printers = printerService.getScheduledPrinters();
+        if (printers.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(printers);
+    }
+
+    @GetMapping("/not-scheduled")
+    public ResponseEntity<List<PrinterEntity>> getNotScheduledPrinters() {
+        List<PrinterEntity> printers = printerService.getNotScheduledPrinters();
         if (printers.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -41,7 +59,7 @@ public class PrinterController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveJobPosting(@Valid @RequestBody PrinterDTO printerDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> savePrinter(@Valid @RequestBody PrinterDTO printerDTO, BindingResult bindingResult) {
         ResponseDTO responseDTO = new ResponseDTO();
         try{
             if (bindingResult.hasErrors()) {
@@ -74,7 +92,7 @@ public class PrinterController {
         try {
             if (ids.toArray().length == 0) {
                 responseDTO.setMessage("Validation failed");
-                responseDTO.setDetail(Collections.singletonList("Please select at least one building to delete"));
+                responseDTO.setDetail(Collections.singletonList("Please select at least one printer to delete"));
                 return ResponseEntity.badRequest().body(responseDTO);
             }
 

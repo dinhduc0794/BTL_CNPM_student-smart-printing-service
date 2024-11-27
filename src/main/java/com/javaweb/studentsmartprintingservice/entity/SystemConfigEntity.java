@@ -1,7 +1,6 @@
 package com.javaweb.studentsmartprintingservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.javaweb.studentsmartprintingservice.enums.PageSizeEnum;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -34,5 +33,5 @@ public class SystemConfigEntity {
 
     @OneToMany(mappedBy = "systemConfig")
     @JsonManagedReference
-    private List<SPSOEntity> spsoEntities = new ArrayList<>();
+    private List<SpsoEntity> spsoEntities = new ArrayList<>();
 }

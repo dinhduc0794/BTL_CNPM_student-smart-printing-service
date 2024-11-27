@@ -1,12 +1,9 @@
 package com.javaweb.studentsmartprintingservice.controller;
 
 
-import com.javaweb.studentsmartprintingservice.entity.PrinterEntity;
 import com.javaweb.studentsmartprintingservice.entity.StudentEntity;
-import com.javaweb.studentsmartprintingservice.model.dto.PrinterDTO;
 import com.javaweb.studentsmartprintingservice.model.dto.StudentDTO;
 import com.javaweb.studentsmartprintingservice.model.response.ResponseDTO;
-import com.javaweb.studentsmartprintingservice.service.PrinterService;
 import com.javaweb.studentsmartprintingservice.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +24,7 @@ public class StudentController {
     private StudentService studentService;
 
     @GetMapping
-    public ResponseEntity<List<StudentEntity>> getAll() {
+    public ResponseEntity<List<StudentEntity>> getAllStudents() {
         List<StudentEntity> students = studentService.getAll();
         if (students.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -45,7 +42,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<?> saveJobPosting(@Valid @RequestBody StudentDTO studentDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> saveStudent(@Valid @RequestBody StudentDTO studentDTO, BindingResult bindingResult) {
         ResponseDTO responseDTO = new ResponseDTO();
         try{
             if (bindingResult.hasErrors()) {
@@ -72,13 +69,13 @@ public class StudentController {
         }
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deletePrinter(@PathVariable List<Long> ids) {
+    @DeleteMapping("/{ids}")
+    public ResponseEntity<?> deleteStudent(@PathVariable List<Long> ids) {
         ResponseDTO responseDTO = new ResponseDTO();
         try {
             if (ids.toArray().length == 0) {
                 responseDTO.setMessage("Validation failed");
-                responseDTO.setDetail(Collections.singletonList("Please select at least one building to delete"));
+                responseDTO.setDetail(Collections.singletonList("Please select at least one student to delete"));
                 return ResponseEntity.badRequest().body(responseDTO);
             }
 

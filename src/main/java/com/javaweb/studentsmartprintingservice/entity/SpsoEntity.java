@@ -15,7 +15,7 @@ import java.util.List;
 @Data
 @Getter
 @Setter
-public class SPSOEntity extends BaseEntity {
+public class SpsoEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

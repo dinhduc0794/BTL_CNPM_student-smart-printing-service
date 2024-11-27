@@ -1,14 +1,9 @@
 package com.javaweb.studentsmartprintingservice.model.dto;
 
-import com.javaweb.studentsmartprintingservice.entity.PrintingLogEntity;
-import com.javaweb.studentsmartprintingservice.entity.SPSOEntity;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter

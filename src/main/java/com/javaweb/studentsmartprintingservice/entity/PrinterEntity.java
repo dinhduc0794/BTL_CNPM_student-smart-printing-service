@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +29,8 @@ public class PrinterEntity {
     @Column(name = "room", nullable = false)
     private String room;
 
-    @Column(name = "is_enable", nullable = false)
-    private Boolean isEnable = true;
+    @Column(name = "is_enabled", nullable = false)
+    private Boolean isEnabled = true;
 
     @Column(name = "is_scheduled", nullable = false)
     private Boolean isScheduled = false;
@@ -64,5 +63,5 @@ public class PrinterEntity {
     @ManyToOne
     @JoinColumn(name = "spso_id")
     @JsonBackReference
-    private SPSOEntity spso;
+    private SpsoEntity spso;
 }
