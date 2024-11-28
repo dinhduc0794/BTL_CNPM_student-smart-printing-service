@@ -15,11 +15,11 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/students/register").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login")
+                        .loginPage("/students/login")
                         .permitAll()
                 )
                 .logout(logout -> logout.permitAll());
