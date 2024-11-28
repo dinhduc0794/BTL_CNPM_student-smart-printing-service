@@ -1,9 +1,11 @@
 package com.javaweb.studentsmartprintingservice.service.impl;
 
+import com.javaweb.studentsmartprintingservice.entity.PrinterEntity;
 import com.javaweb.studentsmartprintingservice.entity.PrintingLogEntity;
 import com.javaweb.studentsmartprintingservice.entity.StudentEntity;
 import com.javaweb.studentsmartprintingservice.enums.StatusEnum;
 import com.javaweb.studentsmartprintingservice.model.dto.PrintingLogDTO;
+import com.javaweb.studentsmartprintingservice.repository.PrinterRepository;
 import com.javaweb.studentsmartprintingservice.repository.PrintingLogRepository;
 import com.javaweb.studentsmartprintingservice.repository.StudentRepository;
 import com.javaweb.studentsmartprintingservice.service.PrintingLogService;
@@ -25,6 +27,9 @@ public class PrintingLogServiceImpl implements PrintingLogService {
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private PrinterRepository printerRepository;
 
     @Override
     public List<PrintingLogEntity> getAll(){
@@ -53,18 +58,42 @@ public class PrintingLogServiceImpl implements PrintingLogService {
         if (studentEntity.getPaperQuantity() < printingLogEntity.getDocumentPages()) {
             throw new IllegalArgumentException("Insufficient paper quantity for the student.");
         }
+        else {
+            // Update student's paper quantity & some other fields
+            studentEntity.getPrintingLogs().add(printingLogEntity);
+            studentEntity.setIs2Side(printingLogEntity.getIs2Side());
+            studentEntity.setIsColor(printingLogEntity.getIsColor());
+            studentEntity.setPageSize(printingLogEntity.getPageSize());
+            studentEntity.setPaperQuantity(studentEntity.getPaperQuantity() - printingLogEntity.getDocumentPages());
+            studentRepository.save(studentEntity);
+        }
 
-        // Update student's paper quantity & some other fields
-        studentEntity.getPrintingLogs().add(printingLogEntity);
-        studentEntity.setIs2Side(printingLogEntity.getIs2Side());
-        studentEntity.setIsColor(printingLogEntity.getIsColor());
-        studentEntity.setPageSize(printingLogEntity.getPageSize());
-        studentEntity.setPaperQuantity(studentEntity.getPaperQuantity() - printingLogEntity.getDocumentPages());
-
-
-        studentRepository.save(studentEntity);
+        PrinterEntity printerEntity = printerRepository.findById(printingLogDTO.getPrinterId())
+                .orElseThrow(() -> new EntityNotFoundException("Printer not found for the given ID: " + printingLogDTO.getPrinterId()));
+        if (printerEntity.getPaperA4left() < printingLogEntity.getDocumentPages() && printingLogEntity.getPageSize().equals("A4")
+                || printerEntity.getPaperA3left() < printingLogEntity.getDocumentPages() && printingLogEntity.getPageSize().equals("A3")
+                || printerEntity.getPaperA2left() < printingLogEntity.getDocumentPages() && printingLogEntity.getPageSize().equals("A2")
+                || printerEntity.getPaperA1left() < printingLogEntity.getDocumentPages() && printingLogEntity.getPageSize().equals("A1")) {
+            throw new IllegalArgumentException("Insufficient paper quantity for the printer.");
+        }
+        else {
+            if (printingLogEntity.getPageSize().equals("A4")) {
+                printerEntity.setPaperA4left(printerEntity.getPaperA4left() - printingLogEntity.getDocumentPages());
+            }
+            else if (printingLogEntity.getPageSize().equals("A3")) {
+                printerEntity.setPaperA3left(printerEntity.getPaperA3left() - printingLogEntity.getDocumentPages());
+            }
+            else if (printingLogEntity.getPageSize().equals("A2")) {
+                printerEntity.setPaperA2left(printerEntity.getPaperA2left() - printingLogEntity.getDocumentPages());
+            }
+            else if (printingLogEntity.getPageSize().equals("A1")) {
+                printerEntity.setPaperA1left(printerEntity.getPaperA1left() - printingLogEntity.getDocumentPages());
+            }
+            printerRepository.save(printerEntity);
+        }
 
         printingLogEntity.setStudent(studentEntity);
+        printingLogEntity.setPrinter(printerEntity);
         printingLogEntity.setStatus(StatusEnum.PENDING);
         return printingLogRepository.save(printingLogEntity);
     }
