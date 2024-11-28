@@ -33,7 +33,7 @@ public class PrintingLogController {
         return ResponseEntity.ok(logs);
     }
 
-    @GetMapping("/student/{id}")
+    @GetMapping("/students/{id}")
     public ResponseEntity<List<PrintingLogEntity>> getByStudentId(@PathVariable Long id) {
         List<PrintingLogEntity> logs = printingLogService.getByStudentId(id);
         if (logs.isEmpty()) {

@@ -13,7 +13,6 @@ import java.time.ZonedDateTime;
 
 @Table(name = "paper_log")
 @Entity
-@Data
 @Getter
 @Setter
 public class PaperLogEntity extends BaseEntity{

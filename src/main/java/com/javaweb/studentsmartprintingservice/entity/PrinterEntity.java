@@ -12,7 +12,6 @@ import java.util.List;
 
 @Table(name = "printer")
 @Entity
-@Data
 @Getter
 @Setter
 public class PrinterEntity {

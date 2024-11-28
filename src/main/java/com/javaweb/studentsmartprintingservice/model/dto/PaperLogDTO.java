@@ -20,3 +20,4 @@ public class PaperLogDTO {
     private StatusEnum status = StatusEnum.PENDING;
     private String message;
 }
+

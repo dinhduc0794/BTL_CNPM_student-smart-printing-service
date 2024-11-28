@@ -17,8 +17,7 @@ public class PrintingLogDTO {
     @NotNull(message = "Student ID is required")
     private Long studentId;
     private Long printerId;
-    @NotBlank(message = "Document path is required")
-    private String documentPath = "./document/document1.pdf";
+    @NotBlank(message = "Document name is required")
     private String documentName;
     private Long documentPages;
     @NotNull(message = "Is scheduled is required")

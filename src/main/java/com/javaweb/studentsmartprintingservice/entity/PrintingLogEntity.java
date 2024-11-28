@@ -14,16 +14,12 @@ import java.time.ZonedDateTime;
 
 @Table(name = "printing_log")
 @Entity
-@Data
 @Getter
 @Setter
 public class PrintingLogEntity extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "document_path", nullable = false)
-    private String documentPath = "./document/document1.pdf";
 
     @Column(name = "document_pages", nullable = false)
     private Long documentPages;

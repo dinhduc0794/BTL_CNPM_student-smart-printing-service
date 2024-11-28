@@ -15,7 +15,7 @@ public class PrinterDTO {
     private String building;
     @NotBlank(message = "Printer location is required")
     private String room;
-    private Boolean isEctive = true;
+    private Boolean isActive = true;
     @NotNull(message = "Printer is scheduled or not is required")
     private Boolean isScheduled = false;
     private String description;
@@ -24,6 +24,5 @@ public class PrinterDTO {
     private Long paperA4left;
     private Long paperA5left;
     private Long paperA6left;
-    @NotNull(message = "Printer must be managed by a SPSO")
     private Long spsoId;
 }

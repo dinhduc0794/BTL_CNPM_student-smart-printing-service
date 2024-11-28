@@ -11,7 +11,6 @@ import java.util.List;
 
 @Table(name = "system_config")
 @Entity
-@Data
 @Getter
 @Setter
 public class SystemConfigEntity {

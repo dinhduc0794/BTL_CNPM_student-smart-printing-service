@@ -13,7 +13,6 @@ import java.util.List;
 
 @Table(name = "student")
 @Entity
-@Data
 @Getter
 @Setter
 public class StudentEntity extends BaseEntity {

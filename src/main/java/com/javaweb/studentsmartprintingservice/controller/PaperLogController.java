@@ -34,7 +34,7 @@ public class PaperLogController {
         return ResponseEntity.ok(logs);
     }
 
-    @GetMapping("/student/{id}")
+    @GetMapping("/students/{id}")
     public ResponseEntity<List<PaperLogEntity>> getByStudentId(@PathVariable Long id) {
         List<PaperLogEntity> logs = paperLogService.getByStudentId(id);
         if (logs.isEmpty()) {
@@ -53,7 +53,7 @@ public class PaperLogController {
     }
 
     @PostMapping("buying-info")
-    public ResponseEntity<?> savePrintingInformation(@Valid @RequestBody PaperLogDTO paperLogDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> saveBuyingInformation(@Valid @RequestBody PaperLogDTO paperLogDTO, BindingResult bindingResult) {
         ResponseDTO responseDTO = new ResponseDTO();
         try{
             if (bindingResult.hasErrors()) {

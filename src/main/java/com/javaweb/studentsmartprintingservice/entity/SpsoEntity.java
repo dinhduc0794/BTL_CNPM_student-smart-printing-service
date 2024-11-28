@@ -12,7 +12,6 @@ import java.util.List;
 
 @Table(name = "spso")
 @Entity
-@Data
 @Getter
 @Setter
 public class SpsoEntity extends BaseEntity {

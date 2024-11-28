@@ -11,6 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class PrintingLogServiceImpl implements PrintingLogService {
     }
 
     @Override
-    public PrintingLogEntity savePrintingInformation(PrintingLogDTO printingLogDTO) {
+    public PrintingLogEntity savePrintingInformation(@RequestBody PrintingLogDTO printingLogDTO) {
         PrintingLogEntity printingLogEntity = modelMapper.map(printingLogDTO, PrintingLogEntity.class);
         StudentEntity studentEntity = studentRepository.findById(printingLogDTO.getStudentId())
                 .orElseThrow(() -> new EntityNotFoundException("Student not found for the given ID: " + printingLogDTO.getStudentId()));

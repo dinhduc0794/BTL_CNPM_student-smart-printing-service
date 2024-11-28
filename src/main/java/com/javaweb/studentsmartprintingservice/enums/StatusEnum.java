@@ -2,7 +2,7 @@ package com.javaweb.studentsmartprintingservice.enums;
 
 public enum StatusEnum {
     PENDING("Chờ xử lý"),
-    PRINTED("Đã in"),
+    ACCEPTED("Đã chấp nhận"),
     CANCELLED("Đã hủy");
 
     private String status;
