@@ -3,6 +3,7 @@ package com.javaweb.studentsmartprintingservice.controller;
 
 import com.javaweb.studentsmartprintingservice.entity.StudentEntity;
 import com.javaweb.studentsmartprintingservice.model.dto.StudentDTO;
+import com.javaweb.studentsmartprintingservice.model.dto.StudentLoginDTO;
 import com.javaweb.studentsmartprintingservice.model.response.ResponseDTO;
 import com.javaweb.studentsmartprintingservice.service.StudentService;
 import jakarta.validation.Valid;
@@ -85,6 +86,39 @@ public class StudentController {
             responseDTO.setMessage("Internal server error");
             responseDTO.setDetail(Collections.singletonList(e.getMessage()));
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDTO);
+        }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> createUser(@Valid @RequestBody StudentDTO studentDTO,
+                                        BindingResult result){
+        try{
+            if(result.hasErrors()){
+                List<String> errorMessages = result.getFieldErrors()
+                        .stream()
+                        .map(FieldError::getDefaultMessage)
+                        .toList();
+                return ResponseEntity.badRequest().body(errorMessages);
+            }
+            if(!studentDTO.getPassword().equals(studentDTO.getRetypePassword())){
+                return ResponseEntity.badRequest().body("Password not match");
+            }
+            StudentEntity studentEntity = studentService.createStudent(studentDTO);//return ResponseEntity.ok("Register successfully");
+            return ResponseEntity.ok("");
+        }
+        catch (Exception ex){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage()); //rule 5
+        }
+    }
+    @PostMapping("/login")
+    public ResponseEntity<String> login(
+            @Valid @RequestBody StudentLoginDTO loginDTO) {
+        // Kiểm tra thông tin đăng nhập và sinh token
+        try {
+            String token = studentService.login(loginDTO.getUsername(), loginDTO.getPassword());
+            return ResponseEntity.ok(token);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

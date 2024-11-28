@@ -4,11 +4,15 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.javaweb.studentsmartprintingservice.enums.FacultyEnum;
 import com.javaweb.studentsmartprintingservice.enums.PageSizeEnum;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Table(name = "student")
@@ -62,4 +66,5 @@ public class StudentEntity extends BaseEntity {
     @OneToMany(mappedBy = "student")
     @JsonManagedReference
     private List<PrintingLogEntity> printingLogs = new ArrayList<>();
+
 }

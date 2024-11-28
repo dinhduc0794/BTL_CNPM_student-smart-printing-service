@@ -52,7 +52,7 @@ public class PrintingLogController {
     }
 
     @PostMapping("printing-info")
-    public ResponseEntity<?> savePrintingInformation(@Valid @RequestBody PrintingLogDTO printingLogDTO, BindingResult bindingResult) {
+    public ResponseEntity<?> savePrintingInformation(@Valid @RequestBody List<PrintingLogDTO> printingLogDTOs, BindingResult bindingResult) {
         ResponseDTO responseDTO = new ResponseDTO();
         try{
             if (bindingResult.hasErrors()) {
@@ -66,11 +66,11 @@ public class PrintingLogController {
                 return ResponseEntity.badRequest().body(responseDTO);
             }
             // neu dung thi //xuong service -> xuong repo -> save vao db
-            PrintingLogEntity log = printingLogService.savePrintingInformation(printingLogDTO);
-            if (log == null) {
+            List<PrintingLogEntity> logs = printingLogService.savePrintingInformation(printingLogDTOs);
+            if (logs == null) {
                 return ResponseEntity.badRequest().body(null);
             }
-            return ResponseEntity.ok(log);
+            return ResponseEntity.ok(logs);
         }
         catch (Exception e){
             responseDTO.setMessage("Internal server error");

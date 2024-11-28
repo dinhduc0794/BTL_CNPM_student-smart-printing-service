@@ -4,6 +4,8 @@ import com.javaweb.studentsmartprintingservice.entity.PrinterEntity;
 import com.javaweb.studentsmartprintingservice.entity.StudentEntity;
 import com.javaweb.studentsmartprintingservice.model.dto.PrinterDTO;
 import com.javaweb.studentsmartprintingservice.model.dto.StudentDTO;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 
@@ -12,4 +14,6 @@ public interface StudentService {
     StudentEntity getById(Long id);
     StudentEntity save(StudentDTO studentDTO);
     void delete(List<Long> ids);
+    StudentEntity createStudent(StudentDTO studentDTO) throws Exception;
+    String login(String username, String password) throws Exception;
 }

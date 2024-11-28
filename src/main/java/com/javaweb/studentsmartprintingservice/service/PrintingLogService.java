@@ -9,6 +9,6 @@ public interface PrintingLogService {
     List<PrintingLogEntity> getAll();
     List<PrintingLogEntity> getByStudentId(Long id);
     PrintingLogEntity getById(Long id);
-    PrintingLogEntity savePrintingInformation(PrintingLogDTO printingLogDTO);
+    List<PrintingLogEntity> savePrintingInformation(List<PrintingLogDTO> printingLogDTOs);
     void delete(List<Long> ids);
 }

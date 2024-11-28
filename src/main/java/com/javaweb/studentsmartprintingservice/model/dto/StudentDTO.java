@@ -15,6 +15,8 @@ public class StudentDTO {
     private String username;
     @NotBlank(message = "Password is required")
     private String password;
+    @NotBlank(message = "Please retype your password")
+    private String retypePassword;
     @NotBlank(message = "Name is required")
     private String name;
     @NotBlank(message = "Email is required")
