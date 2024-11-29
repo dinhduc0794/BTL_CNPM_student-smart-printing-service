@@ -66,11 +66,17 @@ public class PrintingLogController {
                 return ResponseEntity.badRequest().body(responseDTO);
             }
             // neu dung thi //xuong service -> xuong repo -> save vao db
-            List<PrintingLogEntity> logs = printingLogService.savePrintingInformation(printingLogDTOs);
-            if (logs == null) {
-                return ResponseEntity.badRequest().body(null);
+            responseDTO = printingLogService.savePrintingInformation(printingLogDTOs);
+            if (responseDTO.getData() instanceof List<?>) {
+                List<?> dataList = (List<?>) responseDTO.getData();
+                if (dataList.size() != printingLogDTOs.size()) {
+                    return ResponseEntity.badRequest().body(responseDTO);
+                }
+            } else {
+                // Xử lý trường hợp responseDTO.getData() không phải là List
+                return ResponseEntity.badRequest().body(responseDTO);
             }
-            return ResponseEntity.ok(logs);
+            return ResponseEntity.ok(responseDTO);
         }
         catch (Exception e){
             responseDTO.setMessage("Internal server error");

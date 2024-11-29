@@ -38,19 +38,19 @@ public class AuthController {
                 return ResponseEntity.badRequest().body("Password not match");
             }
             StudentEntity studentEntity = studentService.createStudent(studentDTO);//return ResponseEntity.ok("Register successfully");
-            return ResponseEntity.ok("");
+            return ResponseEntity.ok(studentEntity);
         }
         catch (Exception ex){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage()); //rule 5
         }
     }
     @PostMapping("/login")
-    public ResponseEntity<String> login(
+    public ResponseEntity<?> login(
             @Valid @RequestBody StudentLoginDTO loginDTO) {
         // Kiểm tra thông tin đăng nhập và sinh token
         try {
-            String token = studentService.login(loginDTO.getUsername(), loginDTO.getPassword());
-            return ResponseEntity.ok(token);
+            StudentEntity studentEntity = studentService.login(loginDTO.getUsername(), loginDTO.getPassword());
+            return ResponseEntity.ok(studentEntity);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

@@ -15,5 +15,5 @@ public interface StudentService {
     StudentEntity save(StudentDTO studentDTO);
     void delete(List<Long> ids);
     StudentEntity createStudent(StudentDTO studentDTO) throws Exception;
-    String login(String username, String password) throws Exception;
+    StudentEntity login(String username, String password) throws Exception;
 }
