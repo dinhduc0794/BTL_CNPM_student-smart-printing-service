@@ -3,6 +3,7 @@ package com.javaweb.studentsmartprintingservice.controller;
 import com.javaweb.studentsmartprintingservice.entity.StudentEntity;
 import com.javaweb.studentsmartprintingservice.model.dto.StudentDTO;
 import com.javaweb.studentsmartprintingservice.model.dto.StudentLoginDTO;
+import com.javaweb.studentsmartprintingservice.model.response.ResponseDTO;
 import com.javaweb.studentsmartprintingservice.service.StudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +49,12 @@ public class AuthController {
     public ResponseEntity<?> login(
             @Valid @RequestBody StudentLoginDTO loginDTO) {
         // Kiểm tra thông tin đăng nhập và sinh token
+        ResponseDTO responseDTO = new ResponseDTO();
         try {
-            StudentEntity studentEntity = studentService.login(loginDTO.getUsername(), loginDTO.getPassword());
-            return ResponseEntity.ok(studentEntity);
+            String token = studentService.login(loginDTO.getUsername(), loginDTO.getPassword());
+            responseDTO.setMessage("Login successfully");
+            responseDTO.setData(token);
+            return ResponseEntity.ok(token);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

@@ -51,7 +51,7 @@ public class PrintingLogController {
         return ResponseEntity.ok(log);
     }
 
-    @PostMapping("printing-info")
+    @PostMapping("/printing-info")
     public ResponseEntity<?> savePrintingInformation(@Valid @RequestBody List<PrintingLogDTO> printingLogDTOs, BindingResult bindingResult) {
         ResponseDTO responseDTO = new ResponseDTO();
         try{

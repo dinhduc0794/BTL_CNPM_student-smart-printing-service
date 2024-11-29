@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,11 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
     private UserDetailsService userDetailsService;
+
+    @Autowired
+    private JwtService JwtService;
 
     @Override
     public List<StudentEntity> getAll() {
@@ -76,15 +81,16 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentEntity login(String username, String password) throws Exception {
+    public String login(String username, String password) throws Exception {
         // Fetch the student entity by username
-        StudentEntity existingStudent = studentRepository.findByUsername(username)
-                .orElseThrow(() -> new BadCredentialsException("Invalid username or password"));
+        UserDetails existingStudent = userDetailsService.loadUserByUsername(username);
 
         // Verify the provided password against the stored hashed password
         if (!passwordEncoder.matches(password, existingStudent.getPassword())) {
             throw new BadCredentialsException("Invalid username or password");
         }
-        return existingStudent;
+
+        String token = JwtService.generateToken(existingStudent);
+        return token;
     }
 }

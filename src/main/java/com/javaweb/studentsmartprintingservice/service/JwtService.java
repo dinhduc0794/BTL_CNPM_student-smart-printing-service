@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = "your-secret-key";
+    private static final String SECRET_KEY = "f1bf160d7769c635577bac1280bbc4b7ec70404d603a3eed241ee004d5212e8a";
     private static final long TOKEN_VALIDITY = 1000 * 60 * 60 * 10;
 
     public String generateToken(UserDetails userDetails) {
