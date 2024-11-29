@@ -70,7 +70,7 @@ public class PrintingLogController {
             if (responseDTO.getData() instanceof List<?>) {
                 List<?> dataList = (List<?>) responseDTO.getData();
                 if (dataList.size() != printingLogDTOs.size()) {
-                    return ResponseEntity.badRequest().body(responseDTO);
+                    return ResponseEntity.ok().body(responseDTO);
                 }
             } else {
                 // Xử lý trường hợp responseDTO.getData() không phải là List

@@ -27,11 +27,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .cors().and()
                 .csrf(csrf -> csrf.disable()) // Tắt CSRF nếu API là stateless
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/printinglogs/**").permitAll()
-                        .requestMatchers("/auth/register", "/auth/login").permitAll() // Cho phép truy cập công khai
-                        .anyRequest().authenticated() // Yêu cầu xác thực cho các endpoint khác
+                                .anyRequest().permitAll()
+//                        .requestMatchers("/auth/register", "/auth/login").permitAll() // Cho phép truy cập công khai
+//                        .anyRequest().authenticated() // Yêu cầu xác thực cho các endpoint khác
                 )
                 .logout(logout -> logout.permitAll()) // Cho phép logout công khai
                 .formLogin(formLogin -> formLogin.disable()) // Vô hiệu hóa form login mặc định
