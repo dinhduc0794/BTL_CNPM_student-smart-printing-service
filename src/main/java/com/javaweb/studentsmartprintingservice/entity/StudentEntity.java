@@ -6,9 +6,9 @@ import com.javaweb.studentsmartprintingservice.enums.PageSizeEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.core.GrantedAuthority;
+//import org.springframework.security.core.authority.SimpleGrantedAuthority;
+//import org.springframework.security.core.userdetails.UserDetails;
 
 
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class StudentEntity extends BaseEntity {
     private FacultyEnum faculty;
 
     @Column(name = "paper_quantity", nullable = false)
-    private Long paperQuantity = 5L;
+    private Long paperQuantity = 100L;
 
     @Column(name = "is_color", nullable = false)
     private Boolean isColor = false;

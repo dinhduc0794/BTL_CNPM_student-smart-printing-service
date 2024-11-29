@@ -25,7 +25,7 @@ public class StudentDTO {
     private Boolean isActive = true;
     @NotNull(message = "Faculty is required")
     private FacultyEnum faculty;
-    private Long paperQuantity = 5L;
+    private Long paperQuantity = 100L;
     private Boolean isColor = false;
     private PageSizeEnum pageSize = PageSizeEnum.A4;
     private Boolean is2Side = true;

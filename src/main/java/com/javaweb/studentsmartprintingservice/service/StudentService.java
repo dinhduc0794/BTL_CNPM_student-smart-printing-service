@@ -4,8 +4,8 @@ import com.javaweb.studentsmartprintingservice.entity.PrinterEntity;
 import com.javaweb.studentsmartprintingservice.entity.StudentEntity;
 import com.javaweb.studentsmartprintingservice.model.dto.PrinterDTO;
 import com.javaweb.studentsmartprintingservice.model.dto.StudentDTO;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.core.userdetails.User;
+//import org.springframework.dao.DataIntegrityViolationException;
+//import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
 
