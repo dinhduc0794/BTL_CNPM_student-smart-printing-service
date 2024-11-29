@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate để điều hướng
 import LayoutLanding from '~/pages/LayoutLanding';
 import landingImage from '~/assets/landing.png';
 
 function Landing() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const navigate = useNavigate(); // Khởi tạo hook navigate
 
   const handleStartClick = () => {
     setIsPopupVisible(true); // Hiển thị popup
@@ -11,6 +13,11 @@ function Landing() {
 
   const handlePopupClose = () => {
     setIsPopupVisible(false); // Đóng popup
+  };
+
+  const handleYesClick = () => {
+    setIsPopupVisible(false); // Đóng popup
+    navigate('/schedule'); // Chuyển hướng đến trang schedule khi chọn "CÓ"
   };
 
   return (
@@ -63,7 +70,7 @@ function Landing() {
                 KHÔNG
               </button>
               <button
-                onClick={handlePopupClose}
+                onClick={handleYesClick} 
                 className="flex-1 w-10 px-4 py-2 bg-primary-500 text-white font-semibold rounded-md hover:bg-primary-600 transition"
               >
                 CÓ

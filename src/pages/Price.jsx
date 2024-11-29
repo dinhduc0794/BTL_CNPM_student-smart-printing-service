@@ -5,8 +5,8 @@ import QRCode from 'react-qr-code';
 import Pagination from '~/components/Pagination/Pagination';
 
 function Price() {
-  const { user } = useLoaderData();
-  const navigate = useNavigate(); // Dùng để điều hướng
+  const { user, setUser } = useLoaderData(); // Sử dụng setUser để cập nhật lại dữ liệu người dùng
+  const navigate = useNavigate();
   const prices = [
     { id: 1, name: 'SV1', price: 10000, pages: 15 },
     { id: 2, name: 'SV2', price: 20000, pages: 30 },
@@ -20,6 +20,7 @@ function Price() {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 3;
   const [selectedPrice, setSelectedPrice] = useState(null);
+  const [paymentOption, setPaymentOption] = useState(null); // Thêm state để lưu chọn payment option
 
   const currentTableData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * pageSize;
@@ -29,14 +30,28 @@ function Price() {
 
   const handleBuyClick = (price) => {
     setSelectedPrice(price);
+    setPaymentOption(null); // Reset payment option when a new price is selected
+  };
+
+  const handleOptionSelect = (option) => {
+    setPaymentOption(option);
   };
 
   const closeQrModal = () => {
     setSelectedPrice(null);
   };
 
+  const handleCashPayment = () => {
+    // Cập nhật số trang còn lại khi chọn trả tiền mặt
+    setUser((prevState) => ({
+      ...prevState,
+      remainingPages: prevState.remainingPages + selectedPrice.pages,
+    }));
+    closeQrModal(); // Đóng popup
+  };
+
   const handleNextClick = () => {
-    navigate('/schedule'); // Chuyển hướng tới trang mới giống như History
+    navigate('/schedule');
   };
 
   return (
@@ -104,9 +119,31 @@ function Price() {
           </div>
         </div>
 
+        {/* Popup hiển thị lựa chọn payment */}
+        {selectedPrice && !paymentOption && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white rounded-lg p-8 w-96 text-center shadow-lg">
+              <p className="text-lg font-semibold mb-6">Chọn phương thức thanh toán</p>
+              <div className="flex flex-col gap-5">
+                <button
+                  onClick={() => handleOptionSelect('BKPay')}
+                  className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+                >
+                  BKPay
+                </button>
+                <button
+                  onClick={() => handleOptionSelect('Cash')}
+                  className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
+                >
+                  Tiền mặt
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
 
-        {/* Popup hiển thị mã QR */}
-        {selectedPrice && (
+        {/* Mã QR nếu chọn BKPay */}
+        {paymentOption === 'BKPay' && selectedPrice && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white rounded-lg p-8 w-96 text-center shadow-lg">
               <p className="text-lg font-semibold mb-6">
@@ -142,6 +179,34 @@ function Price() {
               >
                 Đóng
               </button>
+            </div>
+          </div>
+        )}
+
+        {/* Nếu chọn Cash, cập nhật số trang */}
+        {paymentOption === 'Cash' && selectedPrice && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white rounded-lg p-8 w-96 text-center shadow-lg">
+              <p className="text-lg font-semibold mb-6">
+                Thanh toán thành công cho gói {selectedPrice.name} bằng tiền mặt.
+              </p>
+              <p className="text-gray-500 mt-4">
+                Số trang đã cộng thêm: {selectedPrice.pages} trang.
+              </p>
+              <div className="flex flex-col gap-5 mt-6">
+                <button
+                  onClick={handleCashPayment}
+                  className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition"
+                >
+                  Xác nhận
+                </button>
+                <button
+                  onClick={closeQrModal}
+                  className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+                >
+                  Đóng
+                </button>
+              </div>
             </div>
           </div>
         )}
