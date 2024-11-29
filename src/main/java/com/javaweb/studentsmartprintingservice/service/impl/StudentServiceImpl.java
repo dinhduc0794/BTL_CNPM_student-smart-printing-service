@@ -4,6 +4,7 @@ import com.javaweb.studentsmartprintingservice.entity.PrinterEntity;
 import com.javaweb.studentsmartprintingservice.entity.StudentEntity;
 import com.javaweb.studentsmartprintingservice.model.dto.PrinterDTO;
 import com.javaweb.studentsmartprintingservice.model.dto.StudentDTO;
+import com.javaweb.studentsmartprintingservice.model.response.ResponseDTO;
 import com.javaweb.studentsmartprintingservice.repository.StudentRepository;
 import com.javaweb.studentsmartprintingservice.service.JwtService;
 import com.javaweb.studentsmartprintingservice.service.StudentService;
@@ -81,9 +82,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public String login(String username, String password) throws Exception {
+    public ResponseDTO login(String username, String password) throws Exception {
+        ResponseDTO responseDTO = new ResponseDTO();
         // Fetch the student entity by username
         UserDetails existingStudent = userDetailsService.loadUserByUsername(username);
+        Long studentId = studentRepository.findByUsername(username).get().getId();
 
         // Verify the provided password against the stored hashed password
         if (!passwordEncoder.matches(password, existingStudent.getPassword())) {
@@ -91,6 +94,9 @@ public class StudentServiceImpl implements StudentService {
         }
 
         String token = JwtService.generateToken(existingStudent);
-        return token;
+        responseDTO.setMessage("Login successfully");
+        responseDTO.setData(token);
+        responseDTO.setEntityId(studentId);
+        return responseDTO;
     }
 }

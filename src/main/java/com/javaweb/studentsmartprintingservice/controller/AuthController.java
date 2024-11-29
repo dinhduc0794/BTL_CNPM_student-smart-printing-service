@@ -51,10 +51,8 @@ public class AuthController {
         // Kiểm tra thông tin đăng nhập và sinh token
         ResponseDTO responseDTO = new ResponseDTO();
         try {
-            String token = studentService.login(loginDTO.getUsername(), loginDTO.getPassword());
-            responseDTO.setMessage("Login successfully");
-            responseDTO.setData(token);
-            return ResponseEntity.ok(token);
+            responseDTO = studentService.login(loginDTO.getUsername(), loginDTO.getPassword());
+            return ResponseEntity.ok(responseDTO);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
