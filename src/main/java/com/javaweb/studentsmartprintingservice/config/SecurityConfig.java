@@ -29,6 +29,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Tắt CSRF nếu API là stateless
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/printinglogs/**").permitAll()
                         .requestMatchers("/auth/register", "/auth/login").permitAll() // Cho phép truy cập công khai
                         .anyRequest().authenticated() // Yêu cầu xác thực cho các endpoint khác
                 )

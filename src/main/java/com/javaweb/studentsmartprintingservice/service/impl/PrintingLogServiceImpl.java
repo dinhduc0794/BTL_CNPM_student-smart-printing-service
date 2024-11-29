@@ -85,7 +85,8 @@ public class PrintingLogServiceImpl implements PrintingLogService {
                 responseDTO.setMessage("Printer not found for the given ID: " + printingLogDTO.getPrinterId());
                 return responseDTO;
             }
-            PrinterEntity printerEntity = printerRepository.findById(printingLogDTO.getId()).get();
+
+            PrinterEntity printerEntity = printerRepository.findById(printingLogDTO.getPrinterId()).get();
 
             if (printerEntity.getPaperA4left() < printingLogEntity.getDocumentPages() && printingLogEntity.getPageSize() == PageSizeEnum.A4
                     || printerEntity.getPaperA3left() < printingLogEntity.getDocumentPages() && printingLogEntity.getPageSize() == PageSizeEnum.A3
