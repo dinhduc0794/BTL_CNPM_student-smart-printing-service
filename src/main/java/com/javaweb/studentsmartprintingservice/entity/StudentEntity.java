@@ -47,7 +47,7 @@ public class StudentEntity extends BaseEntity {
     private FacultyEnum faculty;
 
     @Column(name = "paper_quantity", nullable = false)
-    private Long paperQuantity = 5L;
+    private Long paperQuantity = 100L;
 
     @Column(name = "is_color", nullable = false)
     private Boolean isColor = false;
