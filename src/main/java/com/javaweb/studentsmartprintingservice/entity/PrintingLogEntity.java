@@ -44,10 +44,10 @@ public class PrintingLogEntity extends BaseEntity {
 
     @Column(name = "page_size", nullable = false)
     @Enumerated(EnumType.STRING)
-    private PageSizeEnum pageSize;
+    private PageSizeEnum pageSize = PageSizeEnum.A4;
 
     @Column(name = "is_2_side", nullable = false)
-    private Boolean is2Side;
+    private Boolean is2Side = false;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)

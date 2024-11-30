@@ -26,8 +26,8 @@ public class PrintingLogDTO {
     private String note;
     private Long numberOfCopies = 1L;
     private Boolean isColor = false;
-    private PageSizeEnum pageSize;
-    private Boolean is2Side;
+    private PageSizeEnum pageSize = PageSizeEnum.A4;
+    private Boolean is2Side = false;
     private StatusEnum status = StatusEnum.PENDING;
     private String message;
 }

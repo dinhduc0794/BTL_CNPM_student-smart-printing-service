@@ -28,5 +28,5 @@ public class StudentDTO {
     private Long paperQuantity = 100L;
     private Boolean isColor = false;
     private PageSizeEnum pageSize = PageSizeEnum.A4;
-    private Boolean is2Side = true;
+    private Boolean is2Side = false;
 }

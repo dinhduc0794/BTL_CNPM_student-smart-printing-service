@@ -57,7 +57,7 @@ public class StudentEntity extends BaseEntity {
     private PageSizeEnum pageSize = PageSizeEnum.A4;
 
     @Column(name = "is_2_side", nullable = false)
-    private Boolean is2Side = true;
+    private Boolean is2Side = false;
 
     @OneToMany(mappedBy = "student")
     @JsonManagedReference

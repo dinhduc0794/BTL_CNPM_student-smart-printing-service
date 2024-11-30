@@ -27,6 +27,12 @@ public class SystemConfigEntity {
     @Column(name = "permitted_files")
     private String permittedFiles;
 
+    @Column(name = "permitted_sizes")
+    private String permittedSize;
+
+    @Column(name = "permitted_payment_methods")
+    private String permittedPaymentMethods;
+
     @Column(name = "unit_price")
     private Long unitPrice = 1000L;
 
