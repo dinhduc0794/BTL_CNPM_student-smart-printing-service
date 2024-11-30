@@ -110,7 +110,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}/printinglogs")
-    public ResponseEntity<List<PrintingLogEntity>> getByPrintingLogStudentId(@PathVariable Long id) {
+    public ResponseEntity<List<PrintingLogEntity>> getPrintingLogByStudentId(@PathVariable Long id) {
         List<PrintingLogEntity> logs = printingLogService.getByStudentId(id);
         if (logs.isEmpty()) {
             return ResponseEntity.noContent().build();

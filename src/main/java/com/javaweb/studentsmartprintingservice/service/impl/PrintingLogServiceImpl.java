@@ -57,60 +57,61 @@ public class PrintingLogServiceImpl implements PrintingLogService {
         ResponseDTO responseDTO = new ResponseDTO();
         List<PrintingLogEntity> printingLogEntities = new ArrayList<>();
         for (PrintingLogDTO printingLogDTO : printingLogDTOs) {
+            // mapping
             PrintingLogEntity printingLogEntity = modelMapper.map(printingLogDTO, PrintingLogEntity.class);
+
+            // Check if student exist & have enough paper quantity
             if (studentRepository.findById(printingLogDTO.getStudentId()).isEmpty()) {
                 responseDTO.setData(printingLogEntities);
                 responseDTO.setMessage("Student not found for the given ID: " + printingLogDTO.getStudentId());
                 return responseDTO;
             }
             StudentEntity studentEntity = studentRepository.findById(printingLogDTO.getStudentId()).get();
-
             if (studentEntity.getPaperQuantity() < printingLogEntity.getDocumentPages()) {
                 responseDTO.setData(printingLogEntities);
                 responseDTO.setMessage("Insufficient paper quantity for the student.");
                 return responseDTO;
             }
-            else {
-                // Update student's paper quantity & some other fields
-                studentEntity.getPrintingLogs().add(printingLogEntity);
-                studentEntity.setIs2Side(printingLogEntity.getIs2Side());
-                studentEntity.setIsColor(printingLogEntity.getIsColor());
-                studentEntity.setPageSize(printingLogEntity.getPageSize());
-                studentEntity.setPaperQuantity(studentEntity.getPaperQuantity() - printingLogEntity.getDocumentPages());
-                studentRepository.save(studentEntity);
-            }
 
+            // Check if printer exist & have enough paper quantity
             if (printerRepository.findById(printingLogDTO.getPrinterId()).isEmpty()) {
                 responseDTO.setData(printingLogEntities);
                 responseDTO.setMessage("Printer not found for the given ID: " + printingLogDTO.getPrinterId());
                 return responseDTO;
             }
-
             PrinterEntity printerEntity = printerRepository.findById(printingLogDTO.getPrinterId()).get();
-
-            if (printerEntity.getPaperA4left() < printingLogEntity.getDocumentPages() && printingLogEntity.getPageSize() == PageSizeEnum.A4
-                    || printerEntity.getPaperA3left() < printingLogEntity.getDocumentPages() && printingLogEntity.getPageSize() == PageSizeEnum.A3
-                    || printerEntity.getPaperA2left() < printingLogEntity.getDocumentPages() && printingLogEntity.getPageSize() == PageSizeEnum.A2
-                    || printerEntity.getPaperA1left() < printingLogEntity.getDocumentPages() && printingLogEntity.getPageSize() == PageSizeEnum.A1) {
+            if ((printerEntity.getPaperA4left() < printingLogEntity.getDocumentPages() && printingLogEntity.getPageSize() == PageSizeEnum.A4)
+                    || (printerEntity.getPaperA3left() < printingLogEntity.getDocumentPages() && printingLogEntity.getPageSize() == PageSizeEnum.A3)
+                    || (printerEntity.getPaperA2left() < printingLogEntity.getDocumentPages() && printingLogEntity.getPageSize() == PageSizeEnum.A2)
+                    || (printerEntity.getPaperA1left() < printingLogEntity.getDocumentPages() && printingLogEntity.getPageSize() == PageSizeEnum.A1)) {
                 responseDTO.setData(printingLogEntities);
                 responseDTO.setMessage("Insufficient paper quantity for the printer.");
                 return responseDTO;
             }
-            else {
-                if (printingLogEntity.getPageSize() == PageSizeEnum.A4) {
-                    printerEntity.setPaperA4left(printerEntity.getPaperA4left() - printingLogEntity.getDocumentPages());
-                }
-                else if (printingLogEntity.getPageSize() == PageSizeEnum.A3) {
-                    printerEntity.setPaperA3left(printerEntity.getPaperA3left() - printingLogEntity.getDocumentPages());
-                }
-                else if (printingLogEntity.getPageSize() == PageSizeEnum.A2) {
-                    printerEntity.setPaperA2left(printerEntity.getPaperA2left() - printingLogEntity.getDocumentPages());
-                }
-                else if (printingLogEntity.getPageSize() == PageSizeEnum.A1) {
-                    printerEntity.setPaperA1left(printerEntity.getPaperA1left() - printingLogEntity.getDocumentPages());
-                }
-                printerRepository.save(printerEntity);
+
+            // Update student's paper quantity & some other fields
+            studentEntity.getPrintingLogs().add(printingLogEntity);
+            studentEntity.setIs2Side(printingLogEntity.getIs2Side());
+            studentEntity.setIsColor(printingLogEntity.getIsColor());
+            studentEntity.setPageSize(printingLogEntity.getPageSize());
+            studentEntity.setPaperQuantity(studentEntity.getPaperQuantity() - printingLogEntity.getDocumentPages());
+            studentRepository.save(studentEntity);
+
+
+            // Update printer's paper quantity
+            if (printingLogEntity.getPageSize() == PageSizeEnum.A4) {
+                printerEntity.setPaperA4left(printerEntity.getPaperA4left() - printingLogEntity.getDocumentPages());
             }
+            else if (printingLogEntity.getPageSize() == PageSizeEnum.A3) {
+                printerEntity.setPaperA3left(printerEntity.getPaperA3left() - printingLogEntity.getDocumentPages());
+            }
+            else if (printingLogEntity.getPageSize() == PageSizeEnum.A2) {
+                printerEntity.setPaperA2left(printerEntity.getPaperA2left() - printingLogEntity.getDocumentPages());
+            }
+            else if (printingLogEntity.getPageSize() == PageSizeEnum.A1) {
+                printerEntity.setPaperA1left(printerEntity.getPaperA1left() - printingLogEntity.getDocumentPages());
+            }
+            printerRepository.save(printerEntity);
 
             printingLogEntity.setStudent(studentEntity);
             printingLogEntity.setPrinter(printerEntity);
