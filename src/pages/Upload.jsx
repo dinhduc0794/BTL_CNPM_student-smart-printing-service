@@ -6,30 +6,54 @@ import Navbar from '~/components/Navbar';
 import Button from '~/components/Button';
 import Option from '~/pages//Option';
 import Pagination from '~/components/Pagination/Pagination';
+import globalDataStore from '~/data/global';
+import { useParams } from 'react-router-dom';
 
 function Upload() {
+  const { printerID } = useParams();
   const [files, setFiles] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 6;
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const fileList = e.target.files;
 
-    const fileArray = Array.from(fileList).map((file, index) => ({
-      id: index + 1,
-      name: file.name,
-      type: file.type,
-      size: (file.size / (1024 * 1024)).toFixed(2),
-      rawFile: file
-    }));
+    const fileArray = await Promise.all(
+      Array.from(fileList).map((file, index) => {
+        return new Promise((resolve, reject) => {
+          const extension = file.name.split('.').pop();
+          const reader = new FileReader();
+
+          reader.onloadend = () => {
+            const content = reader.result;
+            const match = content.match(/\/Type[\s]*\/Page[^s]/g);
+            const count = match ? match.length : 1;
+            console.log(count);
+            
+            resolve({
+              fileId: index + 1,
+              documentName: file.name,
+              documentType: extension,
+              documentSize: (file.size / (1024 * 1024)).toFixed(2),
+              documentPages: count,
+              printerId: parseInt(printerID)
+            });
+          };
+
+          reader.onerror = () => reject(new Error("File reading failed"));
+          reader.readAsBinaryString(file);
+        });
+      })
+    );
+
     setFiles(fileArray);
     setError("");
   };
 
   const handleDelete = (id) => {
-    setFiles(files.filter(file => file.id !== id));
+    setFiles(files.filter(file => file.fileID !== id));
   };
 
   const currentTableData = useMemo(() => {
@@ -54,27 +78,8 @@ function Upload() {
     }
 
     setError("");
-    const formData = new FormData();
-    files.forEach((file) => {
-      formData.append("files", file.rawFile);
-    });
 
-    // replace with API in backend
-    // try {
-
-    //   const response = await fetch("/api", {
-    //     method: "POST",
-    //     body: formData,
-    //   });
-
-    //   if (response.ok) {
-    //     openModal();
-    //   } else {
-    //     console.error("Error:", response.statusText);
-    //   }
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
+    globalDataStore.addActionData('files', files);
 
     openModal();
   };
@@ -125,16 +130,16 @@ function Upload() {
             </thead>
             <tbody>
               {currentTableData.map((file) => (
-                <tr key={file.id} className="hover:bg-gray-50 font-semibold text-gray-800 text-center">
-                  <td className="px-6 py-2 text-sm">{file.id}</td>
-                  <td className="px-6 py-2 text-sm">{file.name}</td>
-                  <td className="px-6 py-2 text-sm">{file.type}</td>
-                  <td className="px-6 py-2 text-sm">{file.size} MB</td>
+                <tr key={file.fileId} className="hover:bg-gray-50 font-semibold text-gray-800 text-center">
+                  <td className="px-6 py-2 text-sm">{file.fileId}</td>
+                  <td className="px-6 py-2 text-sm">{file.documentName}</td>
+                  <td className="px-6 py-2 text-sm">{file.documentType}</td>
+                  <td className="px-6 py-2 text-sm">{file.documentSize} MB</td>
                   <td className="px-6 py-2 text-sm">
                     <img
                       src={trashIcon}
                       className="w-auto h-5 cursor-pointer"
-                      onClick={() => handleDelete(file.id)}
+                      onClick={() => handleDelete(file.fileID)}
                     />
                   </td>
                 </tr>

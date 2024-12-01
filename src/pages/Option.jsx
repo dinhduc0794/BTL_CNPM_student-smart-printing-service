@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { Form } from 'react-router-dom';
 
 function Option({ onClose }) {
-  const [paperSize, setPaperSize] = useState('');
+  const [paperSize, setPaperSize] = useState("A4");
   const [quantity, setQuantity] = useState(1);
-  const [isDoubleSided, setIsDoubleSided] = useState('');
-  const [color, setColor] = useState('black');
+  const [isDoubleSided, setIsDoubleSided] = useState(false);
+  const [color, setColor] = useState(false);
 
   const handleSubmit = async () => {
     onClose();
@@ -29,17 +29,18 @@ function Option({ onClose }) {
                 <option value="A4">A4</option>
                 <option value="A3">A3</option>
                 <option value="A2">A2</option>
+                <option value="A1">A1</option>
               </select>
             </div>
 
             <div className="mb-4 flex justify-between items-center">
               <label className="block text-sm font-medium">Số lượng bản in</label>
               <input
-                name="countCopies"
+                name="numberOfCopies"
                 type="number"
                 value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
-                min="1"
+                min={1}
                 className="mt-1 block w-3/5 border-gray-300 rounded-2xl bg-gray-100 p-2"
               />
             </div>
@@ -47,13 +48,13 @@ function Option({ onClose }) {
             <div className="mb-4 flex justify-between items-center">
               <label className="block text-sm font-medium">Một mặt hay hai mặt</label>
               <select
-                name="isOneSide"
+                name="is2Side"
                 value={isDoubleSided}
                 onChange={(e) => setIsDoubleSided(e.target.value)}
                 className="mt-1 block w-3/5 border-gray-300 rounded-2xl bg-gray-100 p-2"
               >
-                <option value="1Side">Một mặt</option>
-                <option value="2Side">Hai mặt</option>
+                <option value={false}>Một mặt</option>
+                <option value={true}>Hai mặt</option>
               </select>
             </div>
 
@@ -65,8 +66,8 @@ function Option({ onClose }) {
                 onChange={(e) => setColor(e.target.value)}
                 className="mt-1 block w-3/5 border-gray-300 rounded-2xl bg-gray-100 p-2"
               >
-                <option value="black">Đen trắng</option>
-                <option value="color">Màu</option>
+                <option value={false}>Đen trắng</option>
+                <option value={true}>Màu</option>
               </select>
             </div>
 

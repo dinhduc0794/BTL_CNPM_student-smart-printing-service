@@ -1,14 +1,14 @@
 import Layout from '~/pages/Layout';
 import { useState } from 'react';
+import { Form } from 'react-router-dom';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './Schedule.scss';
-import { Form } from 'react-router-dom';
 
 function Schedule() {
   const [value, setValue] = useState(new Date());
 
-  function onChange(nextValue) {
+  const onChange = (nextValue) => {
     setValue(nextValue);
   };
 
@@ -17,13 +17,13 @@ function Schedule() {
       <Layout
         title="Đặt lịch in"
         leftLabel="Hủy bỏ"
-        leftLink="/home"
+        leftLink="/"
         rightLabel="Tiếp theo"
         rightLink="/printer"
         isSubmit={true}
         submitButtonId="submitSchedule"
       >
-        <Form method="post" action="/schedule">
+        <Form method="post" action="/schedule" >
           <div className="flex gap-20 px-96 pt-16">
             <div>
               <div className="pb-4 font-medium">Chọn ngày nhận</div>
@@ -43,6 +43,7 @@ function Schedule() {
                     type="time"
                     name="time"
                     className="block w-full h-12 focus:outline-none"
+                    required
                   />
                 </div>
               </div>

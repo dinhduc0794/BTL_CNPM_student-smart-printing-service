@@ -4,14 +4,14 @@ import callIcon from '~/assets/phonecall.png';
 import emailIcon from '~/assets/email.png';
 import locationIcon from '~/assets/location.png';
 
-function Contact(){
+function Contact() {
 
     return (
         <div>
             <Layout
                 title="Liên hệ"
                 leftLabel="Trang chủ"
-                leftLink="/home"
+                leftLink="/"
                 rightLabel="Bắt đầu in"
                 rightLink="/printer"
             >
@@ -54,15 +54,15 @@ function Contact(){
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700">Họ</label>
                                             <input
-                                            type="text"
-                                            className="mt-1 w-full border-b border-gray-300 p-1 "
+                                                type="text"
+                                                className="mt-1 w-full border-b border-gray-300 p-1 "
                                             />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700">Tên</label>
                                             <input
-                                            type="text"
-                                            className="mt-1 w-full border-b border-gray-300 p-1"
+                                                type="text"
+                                                className="mt-1 w-full border-b border-gray-300 p-1"
                                             />
                                         </div>
                                     </div>
@@ -70,15 +70,15 @@ function Contact(){
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700">Email</label>
                                             <input
-                                            type="email"
-                                            className="mt-1 w-full border-b border-gray-300 p-1 "
+                                                type="email"
+                                                className="mt-1 w-full border-b border-gray-300 p-1 "
                                             />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700">Số điện thoại</label>
                                             <input
-                                            type="tel"
-                                            className="mt-1 w-full border-b border-gray-300 p-1 "
+                                                type="tel"
+                                                className="mt-1 w-full border-b border-gray-300 p-1 "
                                             />
                                         </div>
                                     </div>
@@ -87,28 +87,28 @@ function Contact(){
                                         <div className="flex items-center space-x-4 mt-1">
                                             <label className="flex items-center">
                                                 <input
-                                                type="radio"
-                                                name="content"
-                                                value="Báo lỗi"
-                                                className="h-4 w-4 text-blue-500 "
+                                                    type="radio"
+                                                    name="content"
+                                                    value="Báo lỗi"
+                                                    className="h-4 w-4 text-blue-500 "
                                                 />
                                                 <span className="ml-2">Báo lỗi</span>
                                             </label>
                                             <label className="flex items-center">
                                                 <input
-                                                type="radio"
-                                                name="content"
-                                                value="Hỗ trợ"
-                                                className="h-4 w-4 text-blue-500"
+                                                    type="radio"
+                                                    name="content"
+                                                    value="Hỗ trợ"
+                                                    className="h-4 w-4 text-blue-500"
                                                 />
                                                 <span className="ml-2">Hỗ trợ</span>
                                             </label>
                                             <label className="flex items-center">
                                                 <input
-                                                type="radio"
-                                                name="content"
-                                                value="Góp ý"
-                                                className="h-4 w-4 text-blue-500"
+                                                    type="radio"
+                                                    name="content"
+                                                    value="Góp ý"
+                                                    className="h-4 w-4 text-blue-500"
                                                 />
                                                 <span className="ml-2">Góp ý</span>
                                             </label>
@@ -117,17 +117,17 @@ function Contact(){
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700">Tin nhắn</label>
                                         <textarea
-                                        rows="1"
-                                        className="mt-1 block w-full border-b border-gray-300  shadow-sm p-1"
-                                        placeholder="Viết tin nhắn của bạn tại đây ..."
+                                            rows="1"
+                                            className="mt-1 block w-full border-b border-gray-300  shadow-sm p-1"
+                                            placeholder="Viết tin nhắn của bạn tại đây ..."
                                         ></textarea>
                                     </div>
                                     <div className="text-right">
                                         <button
-                                        type="submit"
-                                        className="w-[90px] text-white font-semibold py-2 px-4 rounded bg-primary-500 hover:bg-primary-600"
+                                            type="submit"
+                                            className="w-[90px] text-white font-semibold py-2 px-4 rounded bg-primary-500 hover:bg-primary-600"
                                         >
-                                        Gửi
+                                            Gửi
                                         </button>
                                     </div>
                                 </form>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Dialog,
   DialogPanel,
@@ -9,16 +9,37 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import logo from '~/assets/logo.png'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export default function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      setIsLogin(true);
+    } else {
+      setIsLogin(false);
+    }
+  }, []);
+
+  const handleAuth = () => {
+    if (isLogin) {
+      sessionStorage.removeItem('token');
+      sessionStorage.removeItem('user_id');
+      navigate("/login");
+    } else {
+      navigate("/login");
+    }
+  }
 
   return (
     <header className="bg-white">
       <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <div className="flex lg:flex-1">
-          <a href="home" className="-m-1.5 p-1.5">
+          <Link to="/" className="-m-1.5 p-1.5">
             <div className="flex items-center gap-3">
               <img
                 alt=""
@@ -27,7 +48,7 @@ export default function Navbar() {
               />
               <span className="">HCMUT SSPS</span>
             </div>
-          </a>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -47,7 +68,7 @@ export default function Navbar() {
           <Link to="#" className="text-sm/6 font-semibold text-gray-900">
             Hướng dẫn sử dụng
           </Link>
-          <Link to="#" className="text-sm/6 font-semibold text-gray-900">
+          <Link to="/contact" className="text-sm/6 font-semibold text-gray-900">
             Liên hệ
           </Link>
           <Link to="/history" className="text-sm/6 font-semibold text-gray-900">
@@ -55,9 +76,9 @@ export default function Navbar() {
           </Link>
         </PopoverGroup>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link to="#" className="text-sm/6 font-semibold text-white bg-primary-500 py-1 px-7 rounded-md">
-            Đăng xuất
-          </Link>
+          <button onClick={handleAuth} className="text-sm/6 font-semibold text-white bg-primary-500 py-1 px-7 rounded-md">
+            {isLogin ? 'Đăng xuất' : 'Đăng nhập'}
+          </button>
         </div>
       </nav>
       <hr className="h-0.5 bg-gray-100" />
@@ -65,13 +86,13 @@ export default function Navbar() {
         <div className="fixed inset-0 z-10" />
         <DialogPanel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="home" className="-m-1.5 p-1.5">
+            <Link to="/" className="-m-1.5 p-1.5">
               <img
                 alt=""
                 src={logo}
                 className="h-8 w-auto"
               />
-            </a>
+            </Link>
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
@@ -97,7 +118,7 @@ export default function Navbar() {
                   Hướng dẫn sử dụng
                 </Link>
                 <Link
-                  to="#"
+                  to="/contact"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Liên hệ
@@ -110,12 +131,12 @@ export default function Navbar() {
                 </Link>
               </div>
               <div className="py-6">
-                <Link
-                  to="#"
+                <button
+                  onClick={handleAuth}
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
-                  Đăng xuất
-                </Link>
+                   {isLogin ? 'Đăng xuất' : 'Đăng nhập'}
+                </button>
               </div>
             </div>
           </div>

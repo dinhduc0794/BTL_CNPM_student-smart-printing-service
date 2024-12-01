@@ -1,8 +1,15 @@
-import { useRouteError } from "react-router-dom";
+import { useEffect } from 'react';
+import { useNavigate, useRouteError } from "react-router-dom";
 
 export default function ErrorPage() {
   const error = useRouteError();
-  console.error(error);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (error.status === 403) {
+      navigate("/login");
+    }
+  }, [error, navigate]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-800">
