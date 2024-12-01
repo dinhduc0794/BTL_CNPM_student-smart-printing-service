@@ -65,7 +65,7 @@ export default function Navbar() {
             Bảng giá
           </Link>
 
-          <Link to="#" className="text-sm/6 font-semibold text-gray-900">
+          <Link to="/guide" className="text-sm/6 font-semibold text-gray-900">
             Hướng dẫn sử dụng
           </Link>
           <Link to="/contact" className="text-sm/6 font-semibold text-gray-900">
@@ -112,7 +112,7 @@ export default function Navbar() {
                   Bảng giá
                 </Link>
                 <Link
-                  to="#"
+                  to="/guide"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-semibold text-gray-900 hover:bg-gray-50"
                 >
                   Hướng dẫn sử dụng
