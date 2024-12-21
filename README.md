@@ -69,6 +69,11 @@ Ensure you have the following installed:
 
 ### Backend Setup
 
+ **Run the Spring Boot application:**
+
+   ```bash
+   ./mvnw spring-boot:run
+   ```
 
 ### Frontend Setup
 
