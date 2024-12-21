@@ -33,7 +33,7 @@ We are a group of enthusiastic students from the Computer Science and Engineerin
 ## Project Structure
 
 ```
-HCMUT_SPSS/
+HCMUT_SSPS/
 ├── backend/
 │   ├── src/
 │   │   ├── main/
@@ -92,12 +92,12 @@ Ensure you have the following installed:
 ## Test Accounts for Deployment
 
 1. **Student:**
-   - Username: `student1`
-   - Password: `password1`
+   - Username: `student3`
+   - Password: `123456`
 
 ## Demo for MVP
 
-https://github.com/user-attachments/assets/9305b54b-4cdc-475a-b91e-189d24d18917
+https://github.com/user-attachments/assets/1a8869a4-296a-4d88-9b4e-93691457c5e0
 
 
 ## Authors
